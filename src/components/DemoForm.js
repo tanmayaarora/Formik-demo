@@ -25,7 +25,7 @@ function DemoForm() {
                 <div className="form-control">
                     <label>Name</label>
                     <input type="text" name="nameinput" id="nameinput"
-                        onChange={formik.handleChange} value={formik.values.nameinput} />
+                        {...formik.getFieldProps('nameinput')} />
                     {formik.errors.nameinput && formik.touched.nameinput ? (
                         <div>{formik.errors.nameinput}</div>
                     ) : null}
@@ -34,7 +34,7 @@ function DemoForm() {
                 <div className="form-control">
                     <label>Email</label>
                     <input type="email" name="emailinput" id="emailinput"
-                        onChange={formik.handleChange} value={formik.values.emailinput} />
+                        {...formik.getFieldProps('emailinput')} />
                     {formik.errors.emailinput && formik.touched.emailinput ? (
                         <div>{formik.errors.emailinput}</div>
                     ) : null}
@@ -43,7 +43,7 @@ function DemoForm() {
                 <div className="form-control">
                     <label>Channel name</label>
                     <input type="text" name="channelinput" id="channelinput"
-                        onChange={formik.handleChange} value={formik.values.channelinput} />
+                        {...formik.getFieldProps('channelinput')} />
                     {formik.errors.channelinput && formik.touched.channelinput ? (
                         <div>{formik.errors.channelinput}</div>
                     ) : null}

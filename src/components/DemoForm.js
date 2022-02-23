@@ -1,4 +1,4 @@
-import { Formik } from "formik";
+import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 
 function DemoForm() {
@@ -22,11 +22,10 @@ function DemoForm() {
         validationSchema={FormSchema}
         onSubmit={onSubmit}
         >
-            <form onSubmit={formik.handleSubmit}>
+            <Form>
                 <div className="form-control">
                     <label>Name</label>
-                    <input type="text" name="nameinput" id="nameinput"
-                        {...formik.getFieldProps('nameinput')} />
+                    <Field type="text" name="nameinput" id="nameinput" />
                     {formik.errors.nameinput && formik.touched.nameinput ? (
                         <div>{formik.errors.nameinput}</div>
                     ) : null}
@@ -34,8 +33,7 @@ function DemoForm() {
 
                 <div className="form-control">
                     <label>Email</label>
-                    <input type="email" name="emailinput" id="emailinput"
-                        {...formik.getFieldProps('emailinput')} />
+                    <Field type="email" name="emailinput" id="emailinput" />
                     {formik.errors.emailinput && formik.touched.emailinput ? (
                         <div>{formik.errors.emailinput}</div>
                     ) : null}
@@ -43,14 +41,13 @@ function DemoForm() {
 
                 <div className="form-control">
                     <label>Channel name</label>
-                    <input type="text" name="channelinput" id="channelinput"
-                        {...formik.getFieldProps('channelinput')} />
+                    <Field type="text" name="channelinput" id="channelinput" />
                     {formik.errors.channelinput && formik.touched.channelinput ? (
                         <div>{formik.errors.channelinput}</div>
                     ) : null}
                     <button type="submit">SUBMIT</button>
                 </div>
-            </form>
+            </Form>
         </Formik>
     )
 }

@@ -1,4 +1,4 @@
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 function DemoForm() {
@@ -26,25 +26,19 @@ function DemoForm() {
                 <div className="form-control">
                     <label>Name</label>
                     <Field type="text" name="nameinput" id="nameinput" />
-                    {formik.errors.nameinput && formik.touched.nameinput ? (
-                        <div>{formik.errors.nameinput}</div>
-                    ) : null}
+                    <ErrorMessage name="nameinput"/>
                 </div>
 
                 <div className="form-control">
                     <label>Email</label>
                     <Field type="email" name="emailinput" id="emailinput" />
-                    {formik.errors.emailinput && formik.touched.emailinput ? (
-                        <div>{formik.errors.emailinput}</div>
-                    ) : null}
+                    <ErrorMessage name="emailinput"/>
                 </div>
 
                 <div className="form-control">
                     <label>Channel name</label>
                     <Field type="text" name="channelinput" id="channelinput" />
-                    {formik.errors.channelinput && formik.touched.channelinput ? (
-                        <div>{formik.errors.channelinput}</div>
-                    ) : null}
+                    <ErrorMessage name="channelinput"/>
                     <button type="submit">SUBMIT</button>
                 </div>
             </Form>

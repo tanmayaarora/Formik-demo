@@ -1,26 +1,27 @@
-import { useFormik } from "formik";
+import { Formik } from "formik";
 import * as Yup from "yup";
 
 function DemoForm() {
+    const initialValues = {
+        nameinput:'',
+        emailinput:'',
+        channelinput:''
+    };
     const FormSchema = Yup.object().shape({
         nameinput: Yup.string().required("Name is required"),
         emailinput: Yup.string().email().required("Email is Required"),
         channelinput: Yup.string().required("Channel name is required")
     });
-    const formik = useFormik({
-        enableReinitialize: true,
-        initialValues: {
-            nameinput:'',
-            emailinput:'',
-            channelinput:''
-        },
-        validationSchema: FormSchema,
-        onSubmit: values => {
-            console.log("Formik values: ",values);
-        }
-    })
+    const onSubmit = values => {
+        console.log("Formik values: ",values);
+    }
     return (
-        <div>
+        <Formik
+        enableReinitialize={true}
+        initialValues={initialValues}
+        validationSchema={FormSchema}
+        onSubmit={onSubmit}
+        >
             <form onSubmit={formik.handleSubmit}>
                 <div className="form-control">
                     <label>Name</label>
@@ -50,7 +51,7 @@ function DemoForm() {
                     <button type="submit">SUBMIT</button>
                 </div>
             </form>
-        </div>
+        </Formik>
     )
 }
 

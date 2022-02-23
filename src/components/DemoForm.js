@@ -6,10 +6,13 @@ function DemoForm() {
             nameinput:'',
             emailinput:'',
             channelinput:''
+        },
+        onSubmit: values => {
+            console.log("Formik values: ",values);
         }
     })
     return(
-        <form>
+        <form onSubmit={formik.handleSubmit}>
             <label>Name</label>
             <input type="text" name="nameinput" id="nameinput"
             onChange={formik.handleChange} value={formik.values.nameinput}/>
@@ -21,6 +24,7 @@ function DemoForm() {
             <label>Channel name</label>
             <input type="text" name="channelinput" id="channelinput"
             onChange={formik.handleChange} value={formik.values.channelinput}/>
+            <button type="submit">SUBMIT</button>
         </form>
     )
 }

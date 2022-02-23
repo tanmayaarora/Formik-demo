@@ -1,22 +1,47 @@
 .App {
   text-align: center;
   display: flex;
+  position: relative;
+}
+
+img {
+  opacity: 0.5;
 }
 
 label {
   display: block;
   font-size: x-large;
   font-family: Arial, Helvetica, sans-serif;
-  margin: 2rem !important;
+  margin-top: 2.2rem !important;
+  color: #050A30;
 }
 
 input[type='text'],
 input[type='email'] {
-  margin: 1rem;
+  margin: 0.8rem;
   display: block;
-  padding: 0.3rem;
+  padding: 0.2rem;
+  background-color: #D4F1F4;
+  color: #050A30;
 }
 
 form{
-  margin: 5rem auto;
+  margin: 0rem auto;
+  position: absolute;
+  top: 41%;
+  left: 50.5%;
+  transform: translate(-50%, -50%);
+}
+
+button {
+  margin-top: 2.2rem;
+  background: #ADD8E6;
+  color: #050A30;
+  padding: 0.1rem 1.6rem;
+  font-size: 1.3rem;
+}
+
+button:hover {
+  background: #7EC8E3;
+  cursor: pointer;
 }

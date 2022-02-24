@@ -5,7 +5,8 @@ function DemoForm() {
     const initialValues = {
         nameinput:'',
         emailinput:'',
-        channelinput:''
+        channelinput:'',
+        phoneNumbers: ['','']
     };
     const FormSchema = Yup.object().shape({
         nameinput: Yup.string().required("Name is required"),
@@ -39,6 +40,16 @@ function DemoForm() {
                     <label>Channel name</label>
                     <Field type="text" name="channelinput" id="channelinput" />
                     <ErrorMessage name="channelinput"/>
+                </div>
+                <div className="form-control">
+                    <label>Primary phone number</label>
+                    <Field type="text" name="phoneNumbers[0]" id="phoneprimary" />
+                    <ErrorMessage name="phoneNumbers"/>
+                </div>
+                <div className="form-control">
+                    <label>Secondary phone number</label>
+                    <Field type="text" name="phoneNumbers[1]" id="secondaryphone" />
+                    <ErrorMessage name="phoneNumbers"/>
                     <button type="submit">SUBMIT</button>
                 </div>
             </Form>

@@ -4,12 +4,21 @@
   position: relative;
 }
 
+.dBlock {
+  display: block;
+}
+
+.inner {
+  padding: 0rem 0.6rem; 
+}
+
 img {
   opacity: 0.5;
+  width: 85.3rem !important;
+  max-height: 41rem !important;
 }
 
 label {
-  display: block;
   font-size: x-large;
   font-family: Arial, Helvetica, sans-serif;
   margin-top: 1.5rem !important;
@@ -33,7 +42,6 @@ form{
 }
 
 button {
-  display: block;
   margin: 2.2rem auto;
   background: #ADD8E6;
   color: #050A30;

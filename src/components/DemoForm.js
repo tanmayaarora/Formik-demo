@@ -1,4 +1,4 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 function DemoForm() {
@@ -6,22 +6,22 @@ function DemoForm() {
         nameinput:'',
         emailinput:'',
         channelinput:'',
-        phoneNumbers: ['','']
+        phoneNumbers: ['']
     };
     const FormSchema = Yup.object().shape({
         nameinput: Yup.string().required("Name is required"),
         emailinput: Yup.string().email().required("Email is Required"),
         channelinput: Yup.string().required("Channel name is required")
     });
-    const onSubmit = values => {
-        console.log("Formik values: ",values);
-    }
+    // const onSubmit = values => {
+    //     console.log("Formik values: ",values);
+    // }
     return (
         <Formik
         enableReinitialize={true}
         initialValues={initialValues}
         validationSchema={FormSchema}
-        onSubmit={onSubmit}
+        onSubmit={values => alert(JSON.stringify(values))} //Console.log not working so changed to alert
         >
             <Form>
                 <div className="form-control">
@@ -42,15 +42,32 @@ function DemoForm() {
                     <ErrorMessage name="channelinput"/>
                 </div>
                 <div className="form-control">
-                    <label>Primary phone number</label>
-                    <Field type="text" name="phoneNumbers[0]" id="phoneprimary" />
+                    <label>Phone number</label>
+                    <FieldArray name="phoneNumbers">
+                        {
+                            (fieldArrayProps) => {
+                                console.log("Field array props: ",fieldArrayProps);
+                                const {push, remove, form} = fieldArrayProps;
+                                const {values} = form;
+                                const {phoneNumbers} = values;
+                                console.log("Values in form ",values);
+                                return (
+                                    <div>
+                                        {phoneNumbers.map((nos, index) => (
+                                            <span key={index}>
+                                                <Field name={`phoneNumbers[${index}]`} />
+                                                <button onClick={() => remove(index)} className="inner">-</button>
+                                                <button onClick={() => push('')} className="inner">+</button>
+                                            </span>
+                                        ))
+                                        }
+                                    </div>
+                                )
+                            }
+                        }
+                    </FieldArray>
                     <ErrorMessage name="phoneNumbers"/>
-                </div>
-                <div className="form-control">
-                    <label>Secondary phone number</label>
-                    <Field type="text" name="phoneNumbers[1]" id="secondaryphone" />
-                    <ErrorMessage name="phoneNumbers"/>
-                    <button type="submit">SUBMIT</button>
+                    <button type="submit" className="dBlock">SUBMIT</button>
                 </div>
             </Form>
         </Formik>

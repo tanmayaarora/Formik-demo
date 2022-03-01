@@ -9,10 +9,28 @@ function DemoForm() {
         phoneNumbers: ['']
     };
     const FormSchema = Yup.object().shape({
-        nameinput: Yup.string().required("Name is required"),
-        emailinput: Yup.string().email().required("Email is Required"),
+        nameinput: Yup.string(),
+        emailinput: Yup.string().email(),
         channelinput: Yup.string()
     });
+
+    const validateName = value => {
+        console.log(`Name value in validateName is ${value}`);
+        let error;
+        if(value===""){
+            error = 'Name is required';
+        }
+        return error;
+    }
+
+    const validateEmail = value => {
+        console.log(`Email value in validateEmail is ${value}`);
+        let error;
+        if(value===""){
+            error = 'Email is required';
+        }
+        return error;
+    }
 
     const validateChannel = value => {
         console.log(`Channel value in validateChannel is ${value}`);
@@ -32,53 +50,62 @@ function DemoForm() {
         validationSchema={FormSchema}
         onSubmit={values => alert(JSON.stringify(values))} //Console.log not working so changed to alert
         >
-            <Form>
-                <div className="form-control">
-                    <label>Name</label>
-                    <Field type="text" name="nameinput" id="nameinput" />
-                    <ErrorMessage name="nameinput"/>
-                </div>
+            {
+                formik => {
+                    console.log("Formik props: ",formik);
+                    return (
+                        <Form>
+                            <div className="form-control">
+                                <label>Name</label>
+                                <Field type="text" name="nameinput" id="nameinput" validate={validateName} />
+                                <ErrorMessage name="nameinput" />
+                            </div>
 
-                <div className="form-control">
-                    <label>Email</label>
-                    <Field type="email" name="emailinput" id="emailinput" />
-                    <ErrorMessage name="emailinput"/>
-                </div>
+                            <div className="form-control">
+                                <label>Email</label>
+                                <Field type="email" name="emailinput" id="emailinput" validate={validateEmail} />
+                                <ErrorMessage name="emailinput" />
+                            </div>
 
-                <div className="form-control">
-                    <label>Channel name</label>
-                    <Field type="text" name="channelinput" id="channelinput" validate={validateChannel} />
-                    <ErrorMessage name="channelinput"/>
-                </div>
-                <div className="form-control">
-                    <label>Phone number</label>
-                    <FieldArray name="phoneNumbers">
-                        {
-                            (fieldArrayProps) => {
-                                console.log("Field array props: ",fieldArrayProps);
-                                const {push, remove, form} = fieldArrayProps;
-                                const {values} = form;
-                                const {phoneNumbers} = values;
-                                console.log("Values in form ",values);
-                                return (
-                                    <div>
-                                        {phoneNumbers.map((nos, index) => (
-                                            <span key={index}>
-                                                <Field name={`phoneNumbers[${index}]`} />
-                                                <button onClick={() => remove(index)} className="inner">-</button>
-                                                <button onClick={() => push('')} className="inner">+</button>
-                                            </span>
-                                        ))
+                            <div className="form-control">
+                                <label>Channel name</label>
+                                <Field type="text" name="channelinput" id="channelinput" validate={validateChannel} />
+                                <ErrorMessage name="channelinput" />
+                            </div>
+                            <div className="form-control">
+                                <label>Phone number</label>
+                                <FieldArray name="phoneNumbers">
+                                    {
+                                        (fieldArrayProps) => {
+                                            console.log("Field array props: ", fieldArrayProps);
+                                            const { push, remove, form } = fieldArrayProps;
+                                            const { values } = form;
+                                            const { phoneNumbers } = values;
+                                            console.log("Values in form ", values);
+                                            return (
+                                                <div>
+                                                    {phoneNumbers.map((nos, index) => (
+                                                        <span key={index}>
+                                                            <Field name={`phoneNumbers[${index}]`} />
+                                                            <button onClick={() => remove(index)} className="inner">-</button>
+                                                            <button onClick={() => push('')} className="inner">+</button>
+                                                        </span>
+                                                    ))
+                                                    }
+                                                </div>
+                                            )
                                         }
-                                    </div>
-                                )
-                            }
-                        }
-                    </FieldArray>
-                    <ErrorMessage name="phoneNumbers"/>
-                    <button type="submit" className="dBlock">SUBMIT</button>
-                </div>
-            </Form>
+                                    }
+                                </FieldArray>
+                                <ErrorMessage name="phoneNumbers" />
+                                <button onClick={() => formik.validateField('channelinput')}>Validate channel name</button>
+                                <button onClick={() => formik.validateForm()}>Validate all</button>
+                                <button type="submit" className="dBlock">SUBMIT</button>
+                            </div>
+                        </Form>
+                    )
+                }
+            }
         </Formik>
     )
 }

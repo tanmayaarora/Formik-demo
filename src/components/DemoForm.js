@@ -11,8 +11,17 @@ function DemoForm() {
     const FormSchema = Yup.object().shape({
         nameinput: Yup.string().required("Name is required"),
         emailinput: Yup.string().email().required("Email is Required"),
-        channelinput: Yup.string().required("Channel name is required")
+        channelinput: Yup.string()
     });
+
+    const validateChannel = value => {
+        console.log(`Channel value in validateChannel is ${value}`);
+        let error;
+        if(value===""){
+            error = 'Channel name is required';
+        }
+        return error;
+    }
     // const onSubmit = values => {
     //     console.log("Formik values: ",values);
     // }
@@ -38,7 +47,7 @@ function DemoForm() {
 
                 <div className="form-control">
                     <label>Channel name</label>
-                    <Field type="text" name="channelinput" id="channelinput" />
+                    <Field type="text" name="channelinput" id="channelinput" validate={validateChannel} />
                     <ErrorMessage name="channelinput"/>
                 </div>
                 <div className="form-control">

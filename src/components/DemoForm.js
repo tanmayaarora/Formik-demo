@@ -98,9 +98,9 @@ function DemoForm() {
                                     }
                                 </FieldArray>
                                 <ErrorMessage name="phoneNumbers" />
-                                <button onClick={() => formik.validateField('channelinput')}>Validate channel name</button>
-                                <button onClick={() => formik.validateForm()}>Validate all</button>
-                                <button type="submit" className="dBlock">SUBMIT</button>
+                                <button type="submit" className="dBlock" disabled={!(formik.dirty && formik.isValid)}>
+                                    SUBMIT
+                                </button>
                             </div>
                         </Form>
                     )
